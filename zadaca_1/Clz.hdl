@@ -1,0 +1,125 @@
+CHIP Clz {
+
+    IN in[16];
+    OUT out[16];
+    
+    PARTS:
+        // 16 bit
+        Xor( a = in[15], b = false, out = X16);
+        Not( in = X16, out = Nx16);
+        Add16( a[0..15] = false, b[1..15] = false, b[0] = Nx16, out = O16);
+
+        // 15 bit
+        Or( a = in[14], b = in[13], out = Or15);
+        Not( in = Or15, out = Nor15);
+        Add16( a = O16, b[1..15] = false, b[0] = Nor15, out = O15);
+
+        // 14 bit
+        Or( a = in[13], b = in[12], out = Or14);
+        Or( a = in[13], b = in[14], out = Or13);
+        Not( in = Or14, out = Nor14);
+        Not( in = Or13, out = Nor13);
+        Or( a = Nor13, b = Nor14, out = AN14);
+        Add16( a = O15, b[1..15] = false, b[0] = AN14, out = O14);
+
+        // 13 bit
+        Or( a = in[12], b = in[11], out = Or13b);
+        Or( a = in[12], b = in[13], out = Or12);
+        Not( in = Or13b, out = Nor13b);
+        Not( in = Or12, out = Nor12);
+        Or( a = Nor13b, b = Nor12, out = AN13);
+        Add16( a = O14, b[1..15] = false, b[0] = AN13, out = O13);
+
+        // 12 bit
+        Or( a = in[11], b = in[10], out = Or12b);
+        Or( a = in[11], b = in[12], out = Or11);
+        Not( in = Or12b, out = Nor12b);
+        Not( in = Or11, out = Nor11);
+        Or( a = Nor12b, b = Nor11, out = AN12);
+        Add16( a = O13, b[1..15] = false, b[0] = AN12, out = O12);
+
+        // 11 bit
+        Or( a = in[10], b = in[9], out = Or11b);
+        Or( a = in[10], b = in[11], out = Or10);
+        Not( in = Or11b, out = Nor11b);
+        Not( in = Or10, out = Nor10);
+        Or( a = Nor11b, b = Nor10, out = AN11);
+        Add16( a = O12, b[1..15] = false, b[0] = AN11, out = O11);
+
+        // 10 bit
+        Or( a = in[9], b = in[8], out = Or10b);
+        Or( a = in[9], b = in[10], out = Or9);
+        Not( in = Or10b, out = Nor10b);
+        Not( in = Or9, out = Nor9);
+        Or( a = Nor10b, b = Nor9, out = AN10);
+        Add16( a = O11, b[1..15] = false, b[0] = AN10, out = O10);
+
+        // 9 bit
+        Or( a = in[8], b = in[7], out = Or9b);
+        Or( a = in[8], b = in[9], out = Or8);
+        Not( in = Or9b, out = Nor9b);
+        Not( in = Or8, out = Nor8);
+        Or( a = Nor9b, b = Nor8, out = AN9);
+        Add16( a = O10, b[1..15] = false, b[0] = AN9, out = O9);
+
+        // 8 bit
+        Or( a = in[7], b = in[6], out = Or8b);
+        Or( a = in[7], b = in[8], out = Or7);
+        Not( in = Or8b, out = Nor8b);
+        Not( in = Or7, out = Nor7);
+        Or( a = Nor8b, b = Nor7, out = AN8);
+        Add16( a = O9, b[1..15] = false, b[0] = AN8, out = O8);
+
+        // 7 bit
+        Or( a = in[6], b = in[5], out = Or7b);
+        Or( a = in[6], b = in[7], out = Or6);
+        Not( in = Or7b, out = Nor7b);
+        Not( in = Or6, out = Nor6);
+        Or( a = Nor7b, b = Nor6, out = AN7);
+        Add16( a = O8, b[1..15] = false, b[0] = AN7, out = O7);
+
+        // 6 bit
+        Or( a = in[5], b = in[4], out = Or6b);
+        Or( a = in[5], b = in[6], out = Or5);
+        Not( in = Or6b, out = Nor6b);
+        Not( in = Or5, out = Nor5);
+        Or( a = Nor6b, b = Nor5, out = AN6);
+        Add16( a = O7, b[1..15] = false, b[0] = AN6, out = O6);
+
+        // 5 bit
+        Or( a = in[4], b = in[3], out = Or5b);
+        Or( a = in[4], b = in[5], out = Or4);
+        Not( in = Or5b, out = Nor5b);
+        Not( in = Or4, out = Nor4);
+        Or( a = Nor5b, b = Nor4, out = AN5);
+        Add16( a = O6, b[1..15] = false, b[0] = AN5, out = O5);
+
+        // 4 bit
+        Or( a = in[3], b = in[2], out = Or4b);
+        Or( a = in[3], b = in[4], out = Or3);
+        Not( in = Or4b, out = Nor4b);
+        Not( in = Or3, out = Nor3);
+        Or( a = Nor4b, b = Nor3, out = AN4);
+        Add16( a = O5, b[1..15] = false, b[0] = AN4, out = O4);
+
+        // 3 bit
+        Or( a = in[2], b = in[1], out = Or3b);
+        Or( a = in[2], b = in[3], out = Or2);
+        Not( in = Or3b, out = Nor3b);
+        Not( in = Or2, out = Nor2);
+        Or( a = Nor3b, b = Nor2, out = AN3);
+        Add16( a = O4, b[1..15] = false, b[0] = AN3, out = O3);
+
+        // 2 bit
+        Or( a = in[1], b = in[0], out = Or2b);
+        Or( a = in[1], b = in[2], out = Or1);
+        Not( in = Or2b, out = Nor2b);
+        Not( in = Or1, out = Nor1);
+        Or( a = Nor2b, b = Nor1, out = AN2);
+        Add16( a = O3, b[1..15] = false, b[0] = AN2, out = O2);
+
+        // 1 bit
+        Or( a = in[0], b = in[1], out = OrL);
+        Not( in = OrL, out = NorL);
+        Add16( a = O2, b[1..15] = false, b[0] = NorL, out = out);
+}
