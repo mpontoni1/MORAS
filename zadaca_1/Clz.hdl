@@ -5,14 +5,17 @@ CHIP Clz {
     
     PARTS:
         // 16 bit
-        Xor( a = in[15], b = false, out = X16);
+        Or( a = in[15], b = in[14], out = X16);
         Not( in = X16, out = Nx16);
         Add16( a[0..15] = false, b[1..15] = false, b[0] = Nx16, out = O16);
 
         // 15 bit
         Or( a = in[14], b = in[13], out = Or15);
+		Or( a = in[14], b = in[15], out = Or15b);
         Not( in = Or15, out = Nor15);
-        Add16( a = O16, b[1..15] = false, b[0] = Nor15, out = O15);
+		Not( in = Or15b, out = Nor15b);
+		Or (a = Nor15, b = Nor15b, out = Nor15c);
+        Add16( a = O16, b[1..15] = false, b[0] = Nor15c, out = O15);
 
         // 14 bit
         Or( a = in[13], b = in[12], out = Or14);
