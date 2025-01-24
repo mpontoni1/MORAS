@@ -1,0 +1,63 @@
+push constant 10
+push constant 4
+call Div_mod.div 2
+pop static 0
+
+push constant 10
+push constant 3
+call Div_mod.mod 2
+pop static 1
+
+label END
+goto END
+
+function Div_mod.div 2
+    push constant 0
+    pop local 0
+    push argument 0
+    pop local 1
+
+label DIV_LOOP
+    push local 1
+    push argument 1
+    lt
+    if-goto DIV_END_LOOP
+
+    push local 0
+    push constant 1
+    add
+    pop local 0
+
+    push local 1
+    push argument 1
+    sub
+    pop local 1
+
+    goto DIV_LOOP
+
+label DIV_END_LOOP
+    push local 0
+    return
+
+function Div_mod.mod 2
+    push constant 0
+    pop local 0
+    push argument 0
+    pop local 1
+
+label MOD_LOOP
+    push local 1
+    push argument 1
+    lt
+    if-goto MOD_END_LOOP
+
+    push local 1
+    push argument 1
+    sub
+    pop local 1
+
+    goto MOD_LOOP
+
+label MOD_END_LOOP
+    push local 1
+    return

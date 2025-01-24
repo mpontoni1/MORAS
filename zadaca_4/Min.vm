@@ -1,0 +1,40 @@
+push constant 9
+push constant 3
+push constant 5
+call Min.min 3
+
+pop static 0
+
+label END
+goto END
+
+function Min.min 0
+    push argument 0
+    push argument 1
+    lt
+    if-goto A_smaller_or_equal
+
+    push argument 1
+    push argument 2
+    lt
+    if-goto B_smallest
+
+    push argument 2
+    return
+
+label A_smaller_or_equal
+    push argument 0
+    push argument 2
+    lt
+    if-goto A_smallest
+
+    push argument 2
+    return
+
+label A_smallest
+    push argument 0
+    return
+
+label B_smallest
+    push argument 1
+    return
