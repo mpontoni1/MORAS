@@ -1,0 +1,170 @@
+
+class Vint
+{
+    field int capacity;
+    field Array vector;
+
+    method int len()
+    {
+        return capacity;
+    }
+
+    function int pow_2_n(int n)
+    {
+        var int umn, i;
+
+        let umn = 1;
+
+        while(i<n)
+        {
+            let umn = umn * 2;
+            let i = i + 1;
+        }
+
+        return umn;
+    }
+
+    constructor Vint new(int n)
+    {
+        if (n<0)
+        {
+            let capacity = 1;
+        }
+        else
+        {
+            let capacity = Vint.pow_2_n(n);
+        }
+
+        let vector = Array.new(capacity);
+
+        return this;
+    }
+
+    method void set(int k, int v)
+    {
+        if((k<capacity) & (k>-1))
+        {
+            let vector[k]=v;
+            return;
+        }
+
+        return;
+    }
+
+    method int get(int k)
+    {
+        if ((k<capacity) & (k>-1))
+        {
+            return vector[k];
+        }
+
+        return -1;
+
+    }
+
+    method void resize(int m)
+    {
+        var int minimum, i;
+        var Array new_vector;
+
+        if (m<0)
+        {
+            do vector.dispose();
+            let capacity = 1;
+            let vector = Array.new(capacity);
+            return;
+        }
+
+        let i = 0;
+
+        let minimum = Math.min(capacity, Vint.pow_2_n(m));
+
+        let new_vector = Array.new(Vint.pow_2_n(m));
+
+        while (i<minimum)
+        {
+            let new_vector[i] = vector[i];
+            let i = i + 1;
+        }
+
+        do vector.dispose();
+        let capacity = Vint.pow_2_n(m);
+        let vector = new_vector;
+
+        return;
+    }
+
+    function bool is_eq(Vint a, Vint b)
+    {
+        var int i;
+        let i = 0;
+
+        if (a.len() = b.len())
+        {
+            while(i < a.len())
+            {
+                if (~(a[i]=b[i]))
+                {
+                    return false;
+                }
+
+                let i = i + 1;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function bool elems(Vint a, Vint b)
+    {
+        var int i, j, t;
+        let i = 0;
+        if (a.len() = b.len())
+        {
+            while(i < a.len())
+            {
+                let j = 0;
+                let t = 0;
+
+                while(j < b.len())
+                {
+                    if(a[i] = b[j])
+                    {
+                        let t = 1;
+                    }
+                    
+                    let j = j + 1;
+                }
+
+                if(t = 0)
+                {
+                    return false;
+                }
+
+                let i = i + 1;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    method void printVector()
+    {
+        var int i;
+        while (i < capacity)
+        {
+            do Output.printInt(vector[i]);
+            do Output.printString(",");
+
+            let i = i + 1;
+        }
+
+        do Output.println();
+
+        return;
+    }
+}
